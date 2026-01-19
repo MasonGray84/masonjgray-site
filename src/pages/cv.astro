@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+
+const publications = (await getCollection('publications'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.year - a.data.year);
+---
+
+<h1>Curriculum Vitae</h1>
+
+<section>
+  <h2>Contact</h2>
+  <p>
+    Mason J. Gray<br />
+    masongrayphysics@gmail.com<br />
+    masonjgray.com
+  </p>
+</section>
+
+<section>
+  <h2>Research Interests</h2>
+  <ul>
+    <li>Condensed matter physics</li>
+    <li>Topological materials</li>
+    <li>Research Infrastructure</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Publications</h2>
+
+  <ol>
+    {publications.map(pub => (
+      <li>
+        <strong>{pub.data.title}</strong><br />
+        {pub.data.authors}<br />
+        <em>
+          {pub.data.venue}
+          {pub.data.venue && ', '}
+          {pub.data.year}
+        </em>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<section>
+  <h2>Education</h2>
+  <ul>
+    <li>
+      <strong>Ph.D. in Physics</strong>, Boston College (2021)<br />
+      Advisor: Prof. Kenneth Burch
+    </li>
+  </ul>
+</section>
+
+<section>
+  <h2>Professional Experience</h2>
+  <ul>
+    <li>
+      <strong>Quantum Infrastructure Manager</strong>, AWS Center for Quantum Computing (3 years)<br />
+      Manages non-scientific infrastructure including facilities, safety, security, IT, logistics, and inventory.
+    </li>
+  </ul>
+</section>
+
