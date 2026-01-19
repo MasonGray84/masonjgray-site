@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+
+const publications = (await getCollection('publications'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.year - a.data.year);
+---
+
+<h1>Publications</h1>
+
+<ul>
+  {publications.map(pub => (
+    <li>
+      <strong>{pub.data.title}</strong><br />
+      {pub.data.authors}<br />
+      <em>
+        {pub.data.venue}
+        {pub.data.venue && pub.data.year ? ', ' : ''}
+        {pub.data.year}
+      </em>
+      <div>
+        {pub.data.pdf && <a href={pub.data.pdf}>PDF</a>}
+        {pub.data.doi && (
+          <> · <a href={`https://doi.org/${pub.data.doi}`}>DOI</a></>
+        )}
+        {pub.data.arxiv && (
+          <> · <a href={`https://arxiv.org/abs/${pub.data.arxiv}`}>arXiv</a></>
+        )}
+      </div>
+    </li>
+  ))}
+</ul>
+
