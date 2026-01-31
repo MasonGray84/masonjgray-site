@@ -1,9 +1,12 @@
 ---
-title: 'First post'
-description: 'Lorem ipsum dolor sit amet'
-pubDate: 'Jul 08 2022'
+title: 'First Post'
+description: 'Random, incoherent thoughts about life, transitions, and feedback'
+pubDate: 'Jan 025 2026'
 heroImage: '../../assets/blog-placeholder-3.jpg'
 ---
+
+## Making a Website
+While I was moving my old WordPress site over to a different domain, I stumbled on the only blog post I had ever even attempted to write. It was titled "Coffee Cups and Donuts," and only had one sentence, "To a topologist, a coffee cup and a donut are the same thing." The second sentence was going to be something along the lines of, "This is the required introduction to any talk on topological materials."" I never wrote that next sentence, let alone published the post.  
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
 

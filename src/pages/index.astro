@@ -10,12 +10,36 @@ const publications = (await getCollection('publications'))
   .sort((a,b) => b.data.year - a.data.year);
 ---
 
-<h1>Mason J. Gray</h1>
+<section class="hero">
+  <h1>Mason J. Gray</h1>
+  <p class="subtitle">
+    Materials physics · condensed matter · computational research
+  </p>
 
-<p>
-  Materials scientist working at the intersection of condensed matter physics,
-  topological materials, and experimental infrastructure for research.
-</p>
+  <p class="blurb">
+    I work on the physics and engineering of advanced materials, with interests
+    spanning condensed matter, experimental systems, and translating
+    fundamental research into usable technology.
+  </p>
+</section>
+
+<section>
+  <h2>Selected Publications</h2>
+
+  {publications.length === 0 ? (
+    <p>No featured publications yet.</p>
+  ) : (
+    <ul class="pub-list">
+      {publications.map(pub => (
+        <li>
+          <strong>{pub.data.title}</strong><br />
+          <span class="authors">{pub.data.authors}</span><br />
+          <em>{pub.data.venue}</em>, {pub.data.year}
+        </li>
+      ))}
+    </ul>
+  )}
+</section>
 
 <section>
   <h2>Current Interests</h2>
@@ -24,28 +48,6 @@ const publications = (await getCollection('publications'))
     <li>Condensed matter phenomena</li>
     <li>Open scientific tooling and research infrastructure</li>
   </ul>
-</section>
-
-<section>
-  <h2>Selected Publications</h2>
-
-  {publications.length === 0 ? (
-    <p>See the <a href="/publications">publications page</a> for a full list.</p>
-  ) : (
-    <ul>
-      {publications.map(pub => (
-        <li>
-          <strong>{pub.data.title}</strong><br />
-          {pub.data.authors}<br />
-          <em>
-            {pub.data.venue}
-            {pub.data.venue && ', '}
-            {pub.data.year}
-          </em>
-        </li>
-      ))}
-    </ul>
-  )}
 </section>
 
 <section>
