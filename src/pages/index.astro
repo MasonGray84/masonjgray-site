@@ -8,44 +8,142 @@ import { getCollection } from 'astro:content';
 const publications = (await getCollection('publications'))
   .filter(p => p.data.featured && !p.data.draft)
   .sort((a,b) => b.data.year - a.data.year);
+
+const projects = (await getCollection('projects'))
+  .filter(p => p.data.featured)
+  .sort((a,b) => Number(b.data.featured) - Number(a.data.featured));
 ---
 
 <style>
-  .hero { margin-bottom: 3em; }
-  .hero h1 { font-size: 3.052em; margin-bottom: 0.15em; }
+  .hero {
+    margin-bottom: 3em;
+    padding: 2em 0;
+  }
+  .hero h1 {
+    font-size: 3.052em;
+    margin: 0 0 0.15em 0;
+    line-height: 1.1;
+  }
   .subtitle {
     color: var(--green);
     font-size: 1.1em;
-    margin-top: 0;
+    margin: 0 0 1em 0;
   }
   .blurb {
     color: rgb(var(--gray));
     max-width: 540px;
+    line-height: 1.6;
   }
-  section { margin-bottom: 2.5em; }
-  h2 { font-size: 1.25em; margin-bottom: 0.75em; }
+
+  section { margin-bottom: 3em; }
+  h2 {
+    font-size: 1.25em;
+    margin-bottom: 1em;
+    border-bottom: 1px solid rgba(var(--gray-light), 50%);
+    padding-bottom: 0.3em;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25em;
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid rgba(var(--gray-light), 50%);
+    border-radius: 8px;
+    padding: 1.25em;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card h3 {
+    margin: 0 0 0.5em 0;
+    font-size: 1.1em;
+  }
+  .card p {
+    color: rgb(var(--gray));
+    font-size: 0.9em;
+    line-height: 1.5;
+    margin: 0 0 0.75em 0;
+  }
+  .card a {
+    font-size: 0.9em;
+    font-weight: 600;
+  }
+  .card .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35em;
+    margin-bottom: 0.75em;
+  }
+  .card .tag {
+    font-size: 0.75em;
+    padding: 0.15em 0.5em;
+    border-radius: 4px;
+    background: rgba(var(--gray-light), 50%);
+    color: var(--accent);
+    border: 1px solid rgba(var(--gray-light), 80%);
+  }
+
+  .now-list {
+    list-style: none;
+    padding: 0;
+  }
+  .now-list li {
+    padding: 0.5em 0;
+    color: rgb(var(--gray));
+    line-height: 1.5;
+  }
+  .now-list li::before {
+    content: ">";
+    color: var(--green);
+    font-weight: 700;
+    margin-right: 0.6em;
+  }
+
   .pub-list { list-style: none; padding: 0; }
   .pub-list li {
-    margin-bottom: 1em;
-    padding: 1em;
+    margin-bottom: 0.75em;
+    padding: 0.75em 1em;
     background: var(--bg-card);
     border-radius: 6px;
     border: 1px solid rgba(var(--gray-light), 50%);
+    font-size: 0.9em;
+    line-height: 1.5;
   }
   .pub-list li strong { color: rgb(var(--gray-dark)); }
-  .pub-list .authors {
+  .pub-list .pubauth {
     color: rgb(var(--gray));
-    font-size: 0.9em;
+    font-size: 0.85em;
   }
-  .pub-list .venue { color: var(--accent); font-size: 0.9em; }
+  .pub-list .pubvenue { color: var(--accent); font-size: 0.85em; }
+
+  .connect-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5em;
+  }
+  .connect-list li {
+    background: var(--bg-card);
+    border: 1px solid rgba(var(--gray-light), 50%);
+    border-radius: 8px;
+    padding: 1em 1.5em;
+    transition: border-color 0.2s;
+  }
+  .connect-list li:hover { border-color: var(--accent); }
+  .connect-list a {
+    text-decoration: none;
+    font-weight: 600;
+  }
 </style>
 
 <section class="hero">
   <h1>Mason J. Gray</h1>
   <p class="subtitle">
-    Condensed matter · quantum infrastructure · home lab
+    Condensed matter &middot; quantum infrastructure &middot; home lab
   </p>
-
   <p class="blurb">
     Physicist turned quantum infrastructure manager. I build things at the
     atomic scale at work and at the garage scale at home.
@@ -53,8 +151,52 @@ const publications = (await getCollection('publications'))
 </section>
 
 <section>
-  <h2>Selected Publications</h2>
+  <h2>What I Do</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Physics Research</h3>
+      <p>
+        My Ph.D. work focused on 2D materials, topological superconductivity,
+        and van der Waals heterostructures. I studied helical hinge modes in
+        Fe-based superconductors, the bulk photovoltaic effect in Weyl
+        semimetals, and quantum transport in atomically thin crystals.
+      </p>
+      <a href="/publications">Publications &rarr;</a>
+    </div>
+    <div class="card">
+      <h3>Quantum Infrastructure</h3>
+      <p>
+        I manage facilities, safety, IT, and logistics at the AWS Center for
+        Quantum Computing. Keeping dilution fridges cold and cleanrooms clean
+        so the scientists can focus on building fault-tolerant quantum
+        computers.
+      </p>
+      <a href="/cv">CV &rarr;</a>
+    </div>
+    <div class="card">
+      <h3>Home Lab &amp; Making</h3>
+      <p>
+        3D printing, electronics, keyboard builds, woodworking, and whatever
+        else I'm tinkering with in the garage. I believe in building things
+        with your hands, whether it's a cryostat or a birdhouse.
+      </p>
+      <a href="/projects">Projects &rarr;</a>
+    </div>
+  </div>
+</section>
 
+<section>
+  <h2>Now</h2>
+  <ul class="now-list">
+    <li>Building a temperature-controlled enclosure for my Prusa MK4</li>
+    <li>Rewriting my home lab fume extraction setup for the soldering station</li>
+    <li>Reading <em>The Ministry for the Future</em> by Kim Stanley Robinson</li>
+    <li>Slowly learning better software engineering practices</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Selected Publications</h2>
   {publications.length === 0 ? (
     <p>No featured publications yet.</p>
   ) : (
@@ -62,8 +204,8 @@ const publications = (await getCollection('publications'))
       {publications.map(pub => (
         <li>
           <strong>{pub.data.title}</strong><br />
-          <span class="authors">{pub.data.authors}</span><br />
-          <em>{pub.data.venue}</em>, {pub.data.year}
+          <span class="pubauth">{pub.data.authors}</span><br />
+          <span class="pubvenue">{pub.data.venue}</span>, {pub.data.year}
         </li>
       ))}
     </ul>
@@ -71,20 +213,12 @@ const publications = (await getCollection('publications'))
 </section>
 
 <section>
-  <h2>Current Interests</h2>
-  <ul>
-    <li>Topological materials in devices</li>
-    <li>Condensed matter phenomena</li>
-    <li>Open scientific tooling and research infrastructure</li>
-  </ul>
-</section>
-
-<section>
-  <h2>Links</h2>
-  <ul>
+  <h2>Connect</h2>
+  <ul class="connect-list">
     <li><a href="/cv">Curriculum Vitae</a></li>
     <li><a href="/publications">Publications</a></li>
     <li><a href="/projects">Projects</a></li>
+    <li><a href="/blog">Blog</a></li>
     <li><a href="https://chat.masonjgray.com">Matrix Chat</a></li>
   </ul>
 </section>
