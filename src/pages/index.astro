@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import heroImage from '../assets/UnderGrad_AFM_Mason.jpg';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
@@ -17,8 +19,12 @@ const projects = (await getCollection('projects'))
 <style>
   .hero {
     margin-bottom: 3em;
-    padding: 2em 0;
+    padding: 3em 0;
+    display: flex;
+    align-items: center;
+    gap: 3em;
   }
+  .hero-text { flex: 1; }
   .hero h1 {
     font-size: 3.052em;
     margin: 0 0 0.15em 0;
@@ -33,6 +39,32 @@ const projects = (await getCollection('projects'))
     color: rgb(var(--gray));
     max-width: 540px;
     line-height: 1.6;
+  }
+  .hero-image {
+    flex-shrink: 0;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(var(--gray-light), 50%);
+    box-shadow: var(--box-shadow);
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @media (max-width: 720px) {
+    .hero {
+      flex-direction: column-reverse;
+      text-align: center;
+      gap: 1.5em;
+    }
+    .hero-text { text-align: left; }
+    .hero-image {
+      width: 200px;
+      height: 200px;
+    }
   }
 
   section { margin-bottom: 3em; }
@@ -140,14 +172,19 @@ const projects = (await getCollection('projects'))
 </style>
 
 <section class="hero">
-  <h1>Mason J. Gray</h1>
-  <p class="subtitle">
-    Condensed matter &middot; quantum infrastructure &middot; home lab
-  </p>
-  <p class="blurb">
-    Physicist turned quantum infrastructure manager. I build things at the
-    atomic scale at work and at the garage scale at home.
-  </p>
+  <div class="hero-text">
+    <h1>Mason J. Gray</h1>
+    <p class="subtitle">
+      Condensed matter &middot; quantum infrastructure &middot; home lab
+    </p>
+    <p class="blurb">
+      Physicist turned quantum infrastructure manager. I build things at the
+      atomic scale at work and at the garage scale at home.
+    </p>
+  </div>
+  <div class="hero-image">
+    <Image src={heroImage} alt="Mason J. Gray" width={560} height={560} />
+  </div>
 </section>
 
 <section>
