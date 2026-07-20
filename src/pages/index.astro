@@ -66,7 +66,6 @@ const projects = (await getCollection('projects'))
       height: 200px;
     }
   }
-
   section { margin-bottom: 3em; }
   h2 {
     font-size: 1.25em;
@@ -74,7 +73,6 @@ const projects = (await getCollection('projects'))
     border-bottom: 1px solid rgba(var(--gray-light), 50%);
     padding-bottom: 0.3em;
   }
-
   .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -102,21 +100,6 @@ const projects = (await getCollection('projects'))
     font-size: 0.9em;
     font-weight: 600;
   }
-  .card .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35em;
-    margin-bottom: 0.75em;
-  }
-  .card .tag {
-    font-size: 0.75em;
-    padding: 0.15em 0.5em;
-    border-radius: 4px;
-    background: rgba(var(--gray-light), 50%);
-    color: var(--accent);
-    border: 1px solid rgba(var(--gray-light), 80%);
-  }
-
   .now-list {
     list-style: none;
     padding: 0;
@@ -132,7 +115,6 @@ const projects = (await getCollection('projects'))
     font-weight: 700;
     margin-right: 0.6em;
   }
-
   .pub-list { list-style: none; padding: 0; }
   .pub-list li {
     margin-bottom: 0.75em;
@@ -149,7 +131,6 @@ const projects = (await getCollection('projects'))
     font-size: 0.85em;
   }
   .pub-list .pubvenue { color: var(--accent); font-size: 0.85em; }
-
   .connect-list {
     list-style: none;
     padding: 0;
@@ -171,91 +152,105 @@ const projects = (await getCollection('projects'))
   }
 </style>
 
-<section class="hero">
-  <div class="hero-text">
-    <h1>Mason J. Gray</h1>
-    <p class="subtitle">
-      Condensed matter &middot; quantum infrastructure &middot; home lab
-    </p>
-    <p class="blurb">
-      Physicist turned quantum infrastructure manager. I build things at the
-      atomic scale at work and at the garage scale at home.
-    </p>
-  </div>
-  <div class="hero-image">
-    <Image src={heroImage} alt="Mason J. Gray" width={560} height={560} />
-  </div>
-</section>
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
 
-<section>
-  <h2>What I Do</h2>
-  <div class="card-grid">
-    <div class="card">
-      <h3>Physics Research</h3>
-      <p>
-        My Ph.D. work focused on 2D materials, topological superconductivity,
-        and van der Waals heterostructures. I studied helical hinge modes in
-        Fe-based superconductors, the bulk photovoltaic effect in Weyl
-        semimetals, and quantum transport in atomically thin crystals.
-      </p>
-      <a href="/publications">Publications &rarr;</a>
-    </div>
-    <div class="card">
-      <h3>Quantum Infrastructure</h3>
-      <p>
-        I manage facilities, safety, IT, and logistics at the AWS Center for
-        Quantum Computing. Keeping dilution fridges cold and cleanrooms clean
-        so the scientists can focus on building fault-tolerant quantum
-        computers.
-      </p>
-      <a href="/cv">CV &rarr;</a>
-    </div>
-    <div class="card">
-      <h3>Home Lab &amp; Making</h3>
-      <p>
-        3D printing, electronics, keyboard builds, woodworking, and whatever
-        else I'm tinkering with in the garage. I believe in building things
-        with your hands, whether it's a cryostat or a birdhouse.
-      </p>
-      <a href="/projects">Projects &rarr;</a>
-    </div>
-  </div>
-</section>
+    <main>
+      <section class="hero">
+        <div class="hero-text">
+          <h1>Mason J. Gray</h1>
+          <p class="subtitle">
+            Condensed matter &middot; quantum infrastructure &middot; home lab
+          </p>
+          <p class="blurb">
+            Physicist turned quantum infrastructure manager. I build things at the
+            atomic scale at work and at the garage scale at home.
+          </p>
+        </div>
+        <div class="hero-image">
+          <Image src={heroImage} alt="Mason J. Gray" width={560} height={560} />
+        </div>
+      </section>
 
-<section>
-  <h2>Now</h2>
-  <ul class="now-list">
-    <li>Building a temperature-controlled enclosure for my Prusa MK4</li>
-    <li>Rewriting my home lab fume extraction setup for the soldering station</li>
-    <li>Reading <em>The Ministry for the Future</em> by Kim Stanley Robinson</li>
-    <li>Slowly learning better software engineering practices</li>
-  </ul>
-</section>
+      <section>
+        <h2>What I Do</h2>
+        <div class="card-grid">
+          <div class="card">
+            <h3>Physics Research</h3>
+            <p>
+              My Ph.D. work focused on 2D materials, topological superconductivity,
+              and van der Waals heterostructures. I studied helical hinge modes in
+              Fe-based superconductors, the bulk photovoltaic effect in Weyl
+              semimetals, and quantum transport in atomically thin crystals.
+            </p>
+            <a href="/publications">Publications &rarr;</a>
+          </div>
+          <div class="card">
+            <h3>Quantum Infrastructure</h3>
+            <p>
+              I manage facilities, safety, IT, and logistics at the AWS Center for
+              Quantum Computing. Keeping dilution fridges cold and cleanrooms clean
+              so the scientists can focus on building fault-tolerant quantum
+              computers.
+            </p>
+            <a href="/cv">CV &rarr;</a>
+          </div>
+          <div class="card">
+            <h3>Home Lab &amp; Making</h3>
+            <p>
+              3D printing, electronics, keyboard builds, woodworking, and whatever
+              else I'm tinkering with in the garage. I believe in building things
+              with your hands, whether it's a cryostat or a birdhouse.
+            </p>
+            <a href="/projects">Projects &rarr;</a>
+          </div>
+        </div>
+      </section>
 
-<section>
-  <h2>Selected Publications</h2>
-  {publications.length === 0 ? (
-    <p>No featured publications yet.</p>
-  ) : (
-    <ul class="pub-list">
-      {publications.map(pub => (
-        <li>
-          <strong>{pub.data.title}</strong><br />
-          <span class="pubauth">{pub.data.authors}</span><br />
-          <span class="pubvenue">{pub.data.venue}</span>, {pub.data.year}
-        </li>
-      ))}
-    </ul>
-  )}
-</section>
+      <section>
+        <h2>Now</h2>
+        <ul class="now-list">
+          <li>Building a temperature-controlled enclosure for my Prusa MK4</li>
+          <li>Rewriting my home lab fume extraction setup for the soldering station</li>
+          <li>Reading <em>The Ministry for the Future</em> by Kim Stanley Robinson</li>
+          <li>Slowly learning better software engineering practices</li>
+        </ul>
+      </section>
 
-<section>
-  <h2>Connect</h2>
-  <ul class="connect-list">
-    <li><a href="/cv">Curriculum Vitae</a></li>
-    <li><a href="/publications">Publications</a></li>
-    <li><a href="/projects">Projects</a></li>
-    <li><a href="/blog">Blog</a></li>
-    <li><a href="https://chat.masonjgray.com">Matrix Chat</a></li>
-  </ul>
-</section>
+      <section>
+        <h2>Selected Publications</h2>
+        {publications.length === 0 ? (
+          <p>No featured publications yet.</p>
+        ) : (
+          <ul class="pub-list">
+            {publications.map(pub => (
+              <li>
+                <strong>{pub.data.title}</strong><br />
+                <span class="pubauth">{pub.data.authors}</span><br />
+                <span class="pubvenue">{pub.data.venue}</span>, {pub.data.year}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section>
+        <h2>Connect</h2>
+        <ul class="connect-list">
+          <li><a href="/cv">Curriculum Vitae</a></li>
+          <li><a href="/publications">Publications</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="https://chat.masonjgray.com">Matrix Chat</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
+</html>
