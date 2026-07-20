@@ -1,16 +1,28 @@
 ---
-title: 'Second post'
-description: 'Lorem ipsum dolor sit amet'
-pubDate: 'Jul 15 2022'
+title: "Building a Smoker Thermal Simulator"
+description: "Why offset smoking is a physics problem and how I'm planning to simulate it."
+pubDate: 'Jul 19 2026'
 heroImage: '../../assets/blog-placeholder-4.jpg'
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+I've been getting into offset smoking, and let me tell you, it's humbling. You can follow the same recipe, use the same wood, wake up at the same ungodly hour to light the fire, and get completely different results every time. The difference between a steady 225F and a rollercoaster that peaks at 310F is usually something invisible. A gust of wind. A slightly different coal bed. A water pan that's an inch shallower than last time.
 
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+An offset smoker is a thermal physics experiment wrapped in steel. You've got:
+- A firebox producing variable heat from an unpredictable fuel source (wood and charcoal)
+- A cooking chamber that's basically a horizontal cylinder with natural convection
+- An exhaust vent (chimney) and an intake vent that control airflow
+- A water basin that acts as a thermal mass and humidity source
+- The mass of the steel itself, which buffers temperature swings
+- Ambient conditions: wind, outside temperature, humidity
 
-Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
+All of these interact in nonlinear ways. More airflow means a hotter fire, but it also means more oxygen流过 the meat and faster moisture loss. A water pan stabilizes temperature but also steals heat that could be going to the cooking grate. A bigger fire is more forgiving of small adjustments but harder to control precisely.
 
-Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
+I want to build a simulation where I can tweak each parameter and see the effect instantly. Think of it as a control theory problem with a really tasty plant. The model will use finite difference methods to simulate the heat flow through the system, treating the firebox, cooking chamber, water basin, and grate as coupled thermal nodes with conductive, convective, and radiative heat transfer between them.
 
-Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
+The goal is to answer questions like:
+- How much does increasing the chimney height by 6 inches actually matter?
+- What's the optimal water pan size for a given barrel diameter?
+- How does the firebox-to-chamber volume ratio affect temperature stability?
+- Can I simulate a "set it and forget it" vent configuration?
+
+I'll post updates here as I make progress. The code will be open source, obviously, because this is physics not proprietary sauce.
