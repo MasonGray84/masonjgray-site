@@ -1,66 +1,144 @@
 ---
 import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
 
 const publications = (await getCollection('publications'))
   .filter(p => !p.data.draft)
   .sort((a, b) => b.data.year - a.data.year);
 ---
 
-<h1>Curriculum Vitae</h1>
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={`CV · ${SITE_TITLE}`} description="Curriculum Vitae of Mason J. Gray" />
+    <style>
+      main {
+        width: 720px;
+        max-width: calc(100% - 2em);
+        margin: auto;
+        padding: 2em 1em;
+      }
+      h1 { font-size: 2.441em; margin-bottom: 0.25em; }
+      .contact-line {
+        color: rgb(var(--gray));
+        margin-top: 0;
+        margin-bottom: 2em;
+      }
+      section { margin-bottom: 2.5em; }
+      h2 {
+        font-size: 1.25em;
+        border-bottom: 1px solid rgba(var(--gray-light), 50%);
+        padding-bottom: 0.3em;
+        margin-bottom: 1em;
+      }
+      .entry { margin-bottom: 1.25em; }
+      .entry-title { font-weight: 700; }
+      .entry-sub { color: rgb(var(--gray)); font-size: 0.9em; }
+      ol.pub-list {
+        list-style: none;
+        padding: 0;
+        counter-reset: pub-counter;
+      }
+      ol.pub-list li {
+        counter-increment: pub-counter;
+        margin-bottom: 1em;
+        padding-left: 2em;
+        position: relative;
+        line-height: 1.5;
+      }
+      ol.pub-list li::before {
+        content: counter(pub-counter) ".";
+        position: absolute;
+        left: 0;
+        color: rgb(var(--gray));
+      }
+      ol.pub-list li a { font-size: 0.85em; }
+      ul.skill-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5em;
+      }
+      ul.skill-list li {
+        background: var(--bg-card);
+        padding: 0.3em 0.7em;
+        border-radius: 4px;
+        font-size: 0.9em;
+        border: 1px solid rgba(var(--gray-light), 50%);
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1>Mason J. Gray</h1>
+      <p class="contact-line">masongrayphysics@gmail.com · masonjgray.com</p>
 
-<section>
-  <h2>Contact</h2>
-  <p>
-    Mason J. Gray<br />
-    masongrayphysics@gmail.com<br />
-    masonjgray.com
-  </p>
-</section>
+      <section>
+        <h2>Research Interests</h2>
+        <p>Condensed matter physics, topological materials, quantum computing infrastructure, 2D atomic crystals, research infrastructure and open scientific tooling.</p>
+      </section>
 
-<section>
-  <h2>Research Interests</h2>
-  <ul>
-    <li>Condensed matter physics</li>
-    <li>Topological materials</li>
-    <li>Research Infrastructure</li>
-  </ul>
-</section>
+      <section>
+        <h2>Professional Experience</h2>
+        <div class="entry">
+          <div class="entry-title">Quantum Infrastructure Manager</div>
+          <div class="entry-sub">AWS Center for Quantum Computing, Pasadena, CA · 2021–present</div>
+          <p>Manages non-scientific infrastructure including facilities, safety, security, IT, logistics, and inventory for a leading quantum computing research center.</p>
+        </div>
+      </section>
 
-<section>
-  <h2>Publications</h2>
+      <section>
+        <h2>Education</h2>
+        <div class="entry">
+          <div class="entry-title">Ph.D. in Physics</div>
+          <div class="entry-sub">Boston College, Chestnut Hill, MA · 2021</div>
+          <p>Advisor: Prof. Kenneth Burch. Research focused on 2D materials, topological superconductivity, and novel quantum phenomena in van der Waals heterostructures.</p>
+        </div>
+      </section>
 
-  <ol>
-    {publications.map(pub => (
-      <li>
-        <strong>{pub.data.title}</strong><br />
-        {pub.data.authors}<br />
-        <em>
-          {pub.data.venue}
-          {pub.data.venue && ', '}
-          {pub.data.year}
-        </em>
-      </li>
-    ))}
-  </ol>
-</section>
+      <section>
+        <h2>Skills</h2>
+        <ul class="skill-list">
+          <li>Nanofabrication</li>
+          <li>Device Characterization</li>
+          <li>Transport Measurements</li>
+          <li>Cryogenics</li>
+          <li>STM/S</li>
+          <li>Raman Spectroscopy</li>
+          <li>Glovebox Operations</li>
+          <li>Facilities Management</li>
+          <li>Python</li>
+          <li>LabView</li>
+        </ul>
+      </section>
 
-<section>
-  <h2>Education</h2>
-  <ul>
-    <li>
-      <strong>Ph.D. in Physics</strong>, Boston College (2021)<br />
-      Advisor: Prof. Kenneth Burch
-    </li>
-  </ul>
-</section>
-
-<section>
-  <h2>Professional Experience</h2>
-  <ul>
-    <li>
-      <strong>Quantum Infrastructure Manager</strong>, AWS Center for Quantum Computing (3 years)<br />
-      Manages non-scientific infrastructure including facilities, safety, security, IT, logistics, and inventory.
-    </li>
-  </ul>
-</section>
-
+      <section>
+        <h2>Publications</h2>
+        <ol class="pub-list">
+          {publications.map(pub => (
+            <li>
+              <strong>{pub.data.title}</strong><br />
+              {pub.data.authors}<br />
+              <em>
+                {pub.data.venue}
+                {pub.data.venue && pub.data.year ? ', ' : ''}
+                {pub.data.year}
+              </em>
+              <div>
+                {pub.data.doi && (
+                  <a href={`https://doi.org/${pub.data.doi}`}>DOI</a>
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>

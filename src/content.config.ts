@@ -31,4 +31,17 @@ const publications = defineCollection({
   }),
 })
 
-export const collections = { blog, publications };
+const projects = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    tags: z.array(z.string()),
+    status: z.enum(['active', 'archived', 'complete']).default('active'),
+    githubUrl: z.string().url().optional(),
+    demoUrl: z.string().url().optional(),
+    featured: z.boolean().default(false),
+  }),
+})
+
+export const collections = { blog, publications, projects };

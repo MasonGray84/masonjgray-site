@@ -1,0 +1,144 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => Number(b.data.featured) - Number(a.data.featured),
+);
+
+const statusColors: Record<string, string> = {
+  active: 'var(--green)',
+  archived: 'var(--gray)',
+  complete: 'var(--blue)',
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={`Projects · ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1>Projects</h1>
+      <p class="subtitle">Things I build in the lab and the garage.</p>
+
+      {projects.length === 0 ? (
+        <p>No projects yet. Stay tuned.</p>
+      ) : (
+        <div class="project-grid">
+          {projects.map(project => (
+            <article class="project-card">
+              <div class="card-header">
+                <h2>{project.data.title}</h2>
+                <span
+                  class="status-badge"
+                  style={`--badge-color: ${statusColors[project.data.status] || 'var(--gray)'}`}
+                >
+                  {project.data.status}
+                </span>
+              </div>
+              <p>{project.data.description}</p>
+              <div class="tags">
+                {project.data.tags.map(tag => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+              <div class="links">
+                {project.data.githubUrl && (
+                  <a href={project.data.githubUrl} target="_blank">GitHub</a>
+                )}
+                {project.data.demoUrl && (
+                  <a href={project.data.demoUrl} target="_blank">Demo</a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .subtitle {
+    color: rgb(var(--gray));
+    margin-bottom: 2em;
+  }
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.5em;
+  }
+  .project-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(var(--gray-light), 50%);
+    border-radius: 8px;
+    padding: 1.5em;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .project-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--box-shadow);
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1em;
+    margin-bottom: 0.75em;
+  }
+  .card-header h2 {
+    margin: 0;
+    font-size: 1.25em;
+  }
+  .status-badge {
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.2em 0.6em;
+    border-radius: 4px;
+    border: 1px solid var(--badge-color, var(--gray));
+    color: var(--badge-color, var(--gray));
+    white-space: nowrap;
+    font-weight: 600;
+  }
+  .project-card p {
+    color: rgb(var(--gray));
+    font-size: 0.9em;
+    line-height: 1.5;
+    margin-bottom: 1em;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+    margin-bottom: 1em;
+  }
+  .tag {
+    font-size: 0.8em;
+    padding: 0.15em 0.5em;
+    border-radius: 4px;
+    background: rgba(var(--gray-light), 50%);
+    color: var(--accent);
+    border: 1px solid rgba(var(--gray-light), 80%);
+  }
+  .links {
+    display: flex;
+    gap: 1em;
+  }
+  .links a {
+    font-size: 0.9em;
+    font-weight: 600;
+  }
+  @media (max-width: 720px) {
+    .project-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

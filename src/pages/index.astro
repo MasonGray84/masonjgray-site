@@ -10,16 +10,45 @@ const publications = (await getCollection('publications'))
   .sort((a,b) => b.data.year - a.data.year);
 ---
 
+<style>
+  .hero { margin-bottom: 3em; }
+  .hero h1 { font-size: 3.052em; margin-bottom: 0.15em; }
+  .subtitle {
+    color: var(--green);
+    font-size: 1.1em;
+    margin-top: 0;
+  }
+  .blurb {
+    color: rgb(var(--gray));
+    max-width: 540px;
+  }
+  section { margin-bottom: 2.5em; }
+  h2 { font-size: 1.25em; margin-bottom: 0.75em; }
+  .pub-list { list-style: none; padding: 0; }
+  .pub-list li {
+    margin-bottom: 1em;
+    padding: 1em;
+    background: var(--bg-card);
+    border-radius: 6px;
+    border: 1px solid rgba(var(--gray-light), 50%);
+  }
+  .pub-list li strong { color: rgb(var(--gray-dark)); }
+  .pub-list .authors {
+    color: rgb(var(--gray));
+    font-size: 0.9em;
+  }
+  .pub-list .venue { color: var(--accent); font-size: 0.9em; }
+</style>
+
 <section class="hero">
   <h1>Mason J. Gray</h1>
   <p class="subtitle">
-    Materials physics · condensed matter · computational research
+    Condensed matter · quantum infrastructure · home lab
   </p>
 
   <p class="blurb">
-    I work on the physics and engineering of advanced materials, with interests
-    spanning condensed matter, experimental systems, and translating
-    fundamental research into usable technology.
+    Physicist turned quantum infrastructure manager. I build things at the
+    atomic scale at work and at the garage scale at home.
   </p>
 </section>
 
